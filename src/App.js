@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
+import NoteInp from './Note-inp';
+import NoteOut from './Note-out';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { notes: [] };
+  }
+
+  loadActualNotes = () => {
+    fetch("http://localhost:7777/notes")
+      .then(response => response.json()
+      )
+      .then(rates => {
+        this.setState({ notes: rates });
+      });
+  }
+  addActualNotes = json => {
+    fetch("http://localhost:7777/notes", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(json)
+    })
+      .then(response => this.loadActualNotes());
+  }
+  removeActualNotes = id => {
+    fetch(`http://localhost:7777/notes/${id}`, {
+      method: 'DELETE'
+    })
+      .then(response => this.loadActualNotes());
+  }
+  componentDidMount() {
+    this.loadActualNotes();
+  }
+  render() {
+
+    return (
+      <div className="App">
+        <div className="wrap">
+          <h3>Notes</h3>
+          <button className="refresh" onClick={() => this.loadActualNotes()}>Refresh</button>
+        </div>
+        <NoteOut notes={this.state.notes} onRemove={this.removeActualNotes} />
+        <NoteInp onAdd={this.addActualNotes} />
+      </div>
+    );
+  }
 }
 
 export default App;

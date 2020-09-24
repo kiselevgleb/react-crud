@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  text-align: left;
+  margin-left: 20px;
 }
 
 .App-logo {
@@ -35,4 +36,48 @@
   to {
     transform: rotate(360deg);
   }
+}
+.form{
+  margin-top: 10px;
+  display: block;
+  text-align: left;
+  margin-left: 10px;
+}
+.inp{
+  margin-top: 10px;
+  height: 50px;
+  width: 250px;
+}
+.label{
+  display: block;
+}
+.but{
+  background-color: white;
+  border: white;
+}
+.refresh{
+  display: inline;
+  margin-left: 20px;
+}
+h3{
+  display: inline;
+}
+.wrap{
+  display: block;
+  margin-left: 10px;
+}
+.note{
+  display: inline;
+  margin-left: 10px;
+}
+p{
+  display: inline-block;
+  height: 200px;
+  width: 250px;
+  border: 1px double rgb(212, 212, 212);
+}
+.cros{
+  display: inline;
+  background-color: white;
+  border: white;
 }
