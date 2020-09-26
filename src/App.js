@@ -25,15 +25,16 @@ class App extends React.Component {
       },
       body: JSON.stringify(json)
     })
-      .then(response => this.loadActualNotes());
   }
   removeActualNotes = id => {
     fetch(`http://localhost:7777/notes/${id}`, {
       method: 'DELETE'
     })
-      .then(response => this.loadActualNotes());
   }
   componentDidMount() {
+    this.loadActualNotes();
+  }
+  componentDidUpdate() {
     this.loadActualNotes();
   }
   render() {
